@@ -1,5 +1,4 @@
 # collaborative-minds
-=====================
 
 This is the server side of the project.
 The server side runs using Express.js, on top of Node.js. The backend uses a Mongo database.
