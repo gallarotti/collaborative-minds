@@ -1,0 +1,42 @@
+body, html {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	overflow: hidden;
+	background-color: #eee;
+}
+
+#nav {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 80px;
+	background-color: #525864;
+}
+
+#drawer {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 80px;
+	width: 300px;
+	overflow-y: auto;
+	background-color: #30333a;
+}
+
+#main {
+	position: absolute;
+	overflow: hidden;
+	top: 0;
+	bottom: 0;
+	left: 380px;
+	right: 0;
+}
