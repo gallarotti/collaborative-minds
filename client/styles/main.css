@@ -1,42 +1,152 @@
-body, html {
-	padding: 0;
-	margin: 0;
-}
-
+/* The html and body elements cannot have any padding or margin. */
+html,
 body {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	overflow: hidden;
-	background-color: #eee;
+    width: 100%;
+    height: 100%;
 }
 
-#nav {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	width: 80px;
-	background-color: #525864;
+.container {
+    width: 100%;
 }
 
-#drawer {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 80px;
-	width: 300px;
-	overflow-y: auto;
-	background-color: #30333a;
+/* rows and columns */
+.onepage-row, .onepage-col {
+    overflow: hidden;
+    position: absolute;
+    border-radius: 0;
+}
+.onepage-row { left: 0; right: 0; }
+.onepage-col { top: 0; bottom: 0; }
+.onepage-scroll-x { overflow-x: auto; }
+.onepage-scroll-y { overflow-y: auto; }
+
+/* new absolutely positioned rows and columns can be placed relative to this container */
+.relative-to-this {
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 
-#main {
-	position: absolute;
-	overflow: hidden;
-	top: 0;
-	bottom: 0;
-	left: 380px;
-	right: 0;
+/* define header, content and footer areas */
+#onepage-header { height: 50px; top: 0; }
+#onepage-content { top: 50px; bottom: 0px; }
+/*#onepage-footer { height: 25px; bottom: 0; }*/
+
+/* define main content area and right sidebar */
+#onepage-main { left: 0px; right: 400px; }
+#onepage-right { width: 400px; right: 0px; }
+
+/* divide the main content area in three columns of equal width */
+/*.content-leftcol, .content-col:nth-of-type(1) { left:0; width: 33%; }
+.content-centercol, .content-col:nth-of-type(2) { left: 34%; right: 34%; }
+.content-rightcol, .content-col:nth-of-type(3) { right:0; width: 33%; }*/
+
+.content-col:nth-of-type(1) { left:0; width: 300px; }
+.content-col:nth-of-type(2) { left: 300px; width: 300px; }
+.content-col:nth-of-type(3) { left: 600px; width: 300px; }
+.content-col:nth-of-type(4) { left: 900px; width: 300px; }
+.content-col:nth-of-type(5) { left: 1200px; width: 300px; }
+.content-col:nth-of-type(6) { left: 1500px; width: 300px; }
+.content-col:nth-of-type(7) { left: 1800px; width: 300px; }
+.content-col:nth-of-type(8) { left: 2100px; width: 300px; }
+.content-col:nth-of-type(9) { left: 2400px; width: 300px; }
+.content-col:nth-of-type(10) { left: 2700px; width: 300px; }
+
+/* some extra styling */
+
+#onepage-content {
+    background-color: #fcfcfc;
 }
+
+#onepage-footer {
+    background-color: #c0c0c0;
+    border-top: 1px solid #555555;
+    padding: 15px 0 15px 0;
+}
+
+#onepage-main {
+    background-color: #fcfcfc;
+}
+
+#onepage-right {
+    background-color: #e0e0e0;
+    border-left: 1px solid #555555;
+    padding: 10px;
+}
+
+.content-col { background-color: #fcfcfc; padding: 10px 5px 10px 5px; }
+.content-col:nth-of-type(1) { padding: 10px 5px 10px 10px; }
+
+/* adjusting the default CSS */
+.panel {
+    margin: 5px 1px;
+}
+
+.panel-body {
+    padding: 5px 10px;
+}
+
+.panel-footer {
+    padding: 5px 5px;
+}
+
+.state-panel {
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom: 0;
+    max-height:100%;
+    margin: 0px;
+}
+
+.state-panel-heading {
+    position: absolute;
+    height: 40px;
+    top:0;
+    left:0;
+    right:0;
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+}
+
+.state-panel-body {
+    position: absolute;
+    top:40px;
+    bottom: 35px;
+    left:0;
+    right:0;
+}
+
+.state-panel-footer {
+    position:absolute;
+    height: 35px;
+    bottom:0;
+    left:0;
+    right:0;
+    padding: 5px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #ddd;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+#projects-wrapper {
+    margin: 20px auto;
+    width: 690px;
+}
+
+/* for modals to work with bootstrap 3.x */
+
+.modal {
+  display: block;
+}
+
+.hide {
+    display: none;
+}
+
+/* required by ui-bootstrap */
+
+.nav, .pagination, .carousel a { cursor: pointer; }

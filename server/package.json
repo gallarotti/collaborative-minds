@@ -1,9 +1,11 @@
 {
     "name": "collaborative_minds",
     "description": "collaborative_minds",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "private": true,
     "dependencies": {
-        "express": "3.x"
+        "express": "3.x",
+        "neo4j-js": "0.0.7",
+        "http-status": "0.1.4"
     }
 }

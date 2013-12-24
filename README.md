@@ -5,4 +5,6 @@ A simple collaborative project to learn *Angular.JS* and how to work with the *M
 
 The project structure is inspired by [https://github.com/angular-app/angular-app](https://github.com/angular-app/angular-app) and by [http://briantford.com/blog/huuuuuge-angular-apps.html](http://briantford.com/blog/huuuuuge-angular-apps.html).
 
+Copy the collaborative-minds folder in your Sites folder. To run visit http://localhost/collaborative-minds/client/
+
 

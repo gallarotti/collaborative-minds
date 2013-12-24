@@ -1,21 +1,20 @@
 var collaborativeMindsApp = angular.module("collaborativeMindsApp", [
 	"ngRoute",
-	"ui.bootstrap"
+	"ngResource"
 ]);
 
 collaborativeMindsApp.config(["$routeProvider",
 	function($routeProvider) {
 		$routeProvider.
 			when("/project/:id", {
-				templateUrl: "views/project.html",
-				controller: "ProjectController"
+				templateUrl: "views/lists.html"
 			}).
 			when("/projects", {
-				templateUrl: "views/projects.html",
-				controller: "ProjectController"
+				templateUrl: "views/projects.html"
 			}).
 			otherwise({
-				redirectTo: "/index.html"
+				redirectTo: "/projects"
 			});
-	}]);
+	}
+]);
 

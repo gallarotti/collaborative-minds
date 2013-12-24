@@ -4,3 +4,7 @@
 # project files should be checked into the repository, unless a significant
 # proportion of contributors will probably not be using SublimeText
 # *.sublime-project
+
+# we can safely exclude all node_modules
+# to install them simply CD to the server folder and use: npm install -d
+server/node_modules
