@@ -1,0 +1,16 @@
+<div id="onepage-content" class="onepage-row onepage-scroll-x" ng-controller="ProjectsCtrl as projectController">
+	<h2 ng-repeat="currProject in projectController.currentProject">{{currProject.node.data.company}}</h2>
+	<div class="relative-to-this" ng-controller="ListsCtrl as listsController">
+		<div class="content-col onepage-col" ng-repeat="currList in listsController.lists">
+			<div class="relative-to-this">
+				<div class="panel panel-default state-panel">
+					<div class="relative-to-this">
+						<div class="panel-heading state-panel-heading">
+							<h3 class="panel-title">{{currList.list.data.name}} [{{currList.list.id}}]</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,200 @@
+
+//CREATE project list
+CREATE (n { name:"projectsList" })
+
+//inserting three Project in the "projectsList" linked list
+MATCH (owner) WHERE owner.name="projectsList"
+CREATE UNIQUE (owner)-[:LatestProject]->(newHead:Project { company : 'Some Amazing Company', description : 'Some Boring Project' }) 
+WITH owner, newHead 
+MATCH (newHead)<-[:LatestProject]-(owner)-[oldRel:LatestProject]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousProject]->(oldHead)
+
+MATCH (owner) WHERE owner.name="projectsList"
+CREATE UNIQUE (owner)-[:LatestProject]->(newHead:Project { company : 'Some Other Company', description : 'Web Project' }) 
+WITH owner, newHead 
+MATCH (newHead)<-[:LatestProject]-(owner)-[oldRel:LatestProject]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousProject]->(oldHead)
+
+MATCH (owner) WHERE owner.name="projectsList"
+CREATE UNIQUE (owner)-[:LatestProject]->(newHead:Project { company : 'A German Company', description : 'CMS Upgrade Project' }) 
+WITH owner, newHead 
+MATCH (newHead)<-[:LatestProject]-(owner)-[oldRel:LatestProject]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousProject]->(oldHead)
+
+//inserting three Lists for the project {company:"Some Amazing Company"}
+MATCH (currentProject:Project) WHERE currentProject.company="Some Amazing Company"
+CREATE UNIQUE (currentProject)-[:LatestList]->(newHead:List { name: "First List" }) 
+WITH currentProject, newHead 
+MATCH (newHead)<-[:LatestList]-(currentProject)-[oldRel:LatestList]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousList]->(oldHead)
+
+MATCH (currentProject:Project) WHERE currentProject.company="Some Amazing Company"
+CREATE UNIQUE (currentProject)-[:LatestList]->(newHead:List { name: "Second List" }) 
+WITH currentProject, newHead 
+MATCH (newHead)<-[:LatestList]-(currentProject)-[oldRel:LatestList]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousList]->(oldHead)
+
+MATCH (currentProject:Project) WHERE currentProject.company="Some Amazing Company"
+CREATE UNIQUE (currentProject)-[:LatestList]->(newHead:List { name: "Third List" }) 
+WITH currentProject, newHead 
+MATCH (newHead)<-[:LatestList]-(currentProject)-[oldRel:LatestList]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousList]->(oldHead)
+
+//inserting three Lists for the project {company:"Some Other Company"}
+MATCH (currentProject:Project) WHERE currentProject.company="Some Other Company"
+CREATE UNIQUE (currentProject)-[:LatestList]->(newHead:List { name: "Open Items" }) 
+WITH currentProject, newHead 
+MATCH (newHead)<-[:LatestList]-(currentProject)-[oldRel:LatestList]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousList]->(oldHead)
+
+MATCH (currentProject:Project) WHERE currentProject.company="Some Other Company"
+CREATE UNIQUE (currentProject)-[:LatestList]->(newHead:List { name: "Items in Progress" }) 
+WITH currentProject, newHead 
+MATCH (newHead)<-[:LatestList]-(currentProject)-[oldRel:LatestList]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousList]->(oldHead)
+
+MATCH (currentProject:Project) WHERE currentProject.company="Some Other Company"
+CREATE UNIQUE (currentProject)-[:LatestList]->(newHead:List { name: "Closed Items" }) 
+WITH currentProject, newHead 
+MATCH (newHead)<-[:LatestList]-(currentProject)-[oldRel:LatestList]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousList]->(oldHead)
+
+//inserting two Lists for the project {company:"A German Company"}
+MATCH (currentProject:Project) WHERE currentProject.company="A German Company"
+CREATE UNIQUE (currentProject)-[:LatestList]->(newHead:List { name: "To Do" }) 
+WITH currentProject, newHead 
+MATCH (newHead)<-[:LatestList]-(currentProject)-[oldRel:LatestList]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousList]->(oldHead)
+
+MATCH (currentProject:Project) WHERE currentProject.company="A German Company"
+CREATE UNIQUE (currentProject)-[:LatestList]->(newHead:List { name: "Done" }) 
+WITH currentProject, newHead 
+MATCH (newHead)<-[:LatestList]-(currentProject)-[oldRel:LatestList]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousList]->(oldHead)
+
+// insert a few cards
+MATCH (currentList:List) WHERE ID(currentList)=11
+CREATE UNIQUE (currentList)-[:LatestCard]->(newHead:Card { title: "First do this", description: "Be careful when you do this, ok?" }) 
+WITH currentList, newHead 
+MATCH (newHead)<-[:LatestCard]-(currentList)-[oldRel:LatestCard]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousCard]->(oldHead)
+
+MATCH (currentList:List) WHERE ID(currentList)=11
+CREATE UNIQUE (currentList)-[:LatestCard]->(newHead:Card { title: "Then, do that", description: "Also be very careful when you do that, ok?" }) 
+WITH currentList, newHead 
+MATCH (newHead)<-[:LatestCard]-(currentList)-[oldRel:LatestCard]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousCard]->(oldHead)
+
+MATCH (currentList:List) WHERE ID(currentList)=11
+CREATE UNIQUE (currentList)-[:LatestCard]->(newHead:Card { title: "Finally, get some rest", description: "Time to relax, now!" }) 
+WITH currentList, newHead 
+MATCH (newHead)<-[:LatestCard]-(currentList)-[oldRel:LatestCard]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousCard]->(oldHead)
+
+MATCH (currentList:List) WHERE ID(currentList)=10
+CREATE UNIQUE (currentList)-[:LatestCard]->(newHead:Card { title: "Open the application", description: "Make sure permissions are set correctly" }) 
+WITH currentList, newHead 
+MATCH (newHead)<-[:LatestCard]-(currentList)-[oldRel:LatestCard]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousCard]->(oldHead)
+
+MATCH (currentList:List) WHERE ID(currentList)=10
+CREATE UNIQUE (currentList)-[:LatestCard]->(newHead:Card { title: "Change all the properties", description: "Remove also all duplicates" }) 
+WITH currentList, newHead 
+MATCH (newHead)<-[:LatestCard]-(currentList)-[oldRel:LatestCard]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousCard]->(oldHead)
+
+MATCH (currentList:List) WHERE ID(currentList)=9
+CREATE UNIQUE (currentList)-[:LatestCard]->(newHead:Card { title: "Task #1", description: "This is a very difficult task" }) 
+WITH currentList, newHead 
+MATCH (newHead)<-[:LatestCard]-(currentList)-[oldRel:LatestCard]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousCard]->(oldHead)
+
+MATCH (currentList:List) WHERE ID(currentList)=9
+CREATE UNIQUE (currentList)-[:LatestCard]->(newHead:Card { title: "Task #2", description: "This is an easy task that everyone can do" }) 
+WITH currentList, newHead 
+MATCH (newHead)<-[:LatestCard]-(currentList)-[oldRel:LatestCard]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousCard]->(oldHead)
+
+MATCH (currentList:List) WHERE ID(currentList)=9
+CREATE UNIQUE (currentList)-[:LatestCard]->(newHead:Card { title: "Task #3", description: "This is a quick task, shouldn't take much time" }) 
+WITH currentList, newHead 
+MATCH (newHead)<-[:LatestCard]-(currentList)-[oldRel:LatestCard]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousCard]->(oldHead)
+
+MATCH (currentList:List) WHERE ID(currentList)=9
+CREATE UNIQUE (currentList)-[:LatestCard]->(newHead:Card { title: "Task #4", description: "This is a long task!!" }) 
+WITH currentList, newHead 
+MATCH (newHead)<-[:LatestCard]-(currentList)-[oldRel:LatestCard]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousCard]->(oldHead)
+
+MATCH (currentList:List) WHERE ID(currentList)=8
+CREATE UNIQUE (currentList)-[:LatestCard]->(newHead:Card { title: "Monday", description: "Meeting with client" }) 
+WITH currentList, newHead 
+MATCH (newHead)<-[:LatestCard]-(currentList)-[oldRel:LatestCard]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousCard]->(oldHead)
+
+MATCH (currentList:List) WHERE ID(currentList)=8
+CREATE UNIQUE (currentList)-[:LatestCard]->(newHead:Card { title: "Tuesday", description: "Preparing Requirements Document" }) 
+WITH currentList, newHead 
+MATCH (newHead)<-[:LatestCard]-(currentList)-[oldRel:LatestCard]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousCard]->(oldHead)
+
+MATCH (currentList:List) WHERE ID(currentList)=8
+CREATE UNIQUE (currentList)-[:LatestCard]->(newHead:Card { title: "Wednesday", description: "Reviewing Document with Client" }) 
+WITH currentList, newHead 
+MATCH (newHead)<-[:LatestCard]-(currentList)-[oldRel:LatestCard]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousCard]->(oldHead)
+
+MATCH (currentList:List) WHERE ID(currentList)=7
+CREATE UNIQUE (currentList)-[:LatestCard]->(newHead:Card { title: "Call mom", description: "" }) 
+WITH currentList, newHead 
+MATCH (newHead)<-[:LatestCard]-(currentList)-[oldRel:LatestCard]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousCard]->(oldHead)
+
+MATCH (currentList:List) WHERE ID(currentList)=7
+CREATE UNIQUE (currentList)-[:LatestCard]->(newHead:Card { title: "Buy milk", description: "" }) 
+WITH currentList, newHead 
+MATCH (newHead)<-[:LatestCard]-(currentList)-[oldRel:LatestCard]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousCard]->(oldHead)
+
+MATCH (currentList:List) WHERE ID(currentList)=7
+CREATE UNIQUE (currentList)-[:LatestCard]->(newHead:Card { title: "Walk the dog", description: "" }) 
+WITH currentList, newHead 
+MATCH (newHead)<-[:LatestCard]-(currentList)-[oldRel:LatestCard]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousCard]->(oldHead)
+
+MATCH (currentList:List) WHERE ID(currentList)=7
+CREATE UNIQUE (currentList)-[:LatestCard]->(newHead:Card { title: "Prepare dinner", description: "" }) 
+WITH currentList, newHead 
+MATCH (newHead)<-[:LatestCard]-(currentList)-[oldRel:LatestCard]->(oldHead) 
+DELETE oldRel 
+CREATE (newHead)-[:PreviousCard]->(oldHead)
+
+
+
