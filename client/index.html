@@ -18,11 +18,14 @@
 		<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="styles/main.css" />
 		<script src="scripts/app.js"></script>
-		<script src="scripts/controllers/ProjectsCtrl.js"></script>
-		<script src="scripts/controllers/ListsCtrl.js"></script>
 		<script src="scripts/services/ProjectsSvc.js"></script>
 		<script src="scripts/services/ListsSvc.js"></script>
 		<script src="scripts/services/CardsSvc.js"></script>
+		<script src="scripts/services/LogSvc.js"></script>
+		<script src="scripts/controllers/ProjectsCtrl.js"></script>
+		<script src="scripts/controllers/ListsCtrl.js"></script>
+		<script src="scripts/controllers/LogCtrl.js"></script>
+		<script src="scripts/controllers/ModalCardsCtrl.js"></script>
 	</head>
 	<body>
 		<!-- Fixed navbar -->
@@ -37,8 +40,9 @@
 				<a class="navbar-brand" href="#">collaborative_minds</a>
 			</div>
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
+				<ul class="nav navbar-nav" ng-controller="LogCtrl as logController">
 					<li><a href="#/projects">Projects</a></li>
+					<li><a href="#/projects">Message: {{logController.logService.message}}</a></li>
 				</ul>
 			</div>
  		</nav>

@@ -1,0 +1,18 @@
+<div class="modal-dialog" ng-app="collaborativeMindsApp">
+	<div class="modal-content" ng-controller="ModalCardsCtrl as cardsController">
+        <div class="modal-header">
+            <h4>Card Title</h4> 
+            <input type="text" class="form-control">
+        </div>
+        <div class="modal-body">
+        	<h4>Card Content</h4>
+        	<div>here goes the content of the card</div>
+        	<textarea class="form-control" placeholder="Card Content" rows="10" cols="40">
+        	</textarea>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-default btn-large" ng-click="cardsController.ok()">Save</button>
+            <button class="btn btn-default btn-large" ng-click="cardsController.cancel()">Cancel</button>
+        </div>
+    </div>
+</div>

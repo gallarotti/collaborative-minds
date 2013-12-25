@@ -1,5 +1,4 @@
 <div id="onepage-content" class="onepage-row onepage-scroll-x" ng-controller="ProjectsCtrl as projectController">
-	<h2 ng-repeat="currProject in projectController.currentProject">{{currProject.node.data.company}}</h2>
 	<div class="relative-to-this" ng-controller="ListsCtrl as listsController">
 		<div class="content-col onepage-col" ng-repeat="currList in listsController.lists">
 			<div class="relative-to-this">
@@ -7,6 +6,21 @@
 					<div class="relative-to-this">
 						<div class="panel-heading state-panel-heading">
 							<h3 class="panel-title">{{currList.list.data.name}} [{{currList.list.id}}]</h3>
+						</div>
+						<div class="panel-body state-panel-body onepage-scroll-y">
+							<div class="panel panel-default" ng-repeat="currentCard in currList.list.cards">
+								<div class="panel-heading">
+									<h3 class="panel-title">{{currentCard.card.data.title}} [{{currentCard.card.id}}]</h3>
+								</div>										
+								<div class="panel-body">
+									{{currentCard.card.data.description}}
+								</div>										
+							</div>
+						</div>
+						<div class="panel-footer state-panel-footer">
+							<button class="btn btn-default btn-xs" ng-click="listsController.addCard(currList.list.id)">
+								<span class="glyphicon glyphicon-plus-sign"></span> Add Card
+							</button>
 						</div>
 					</div>
 				</div>
