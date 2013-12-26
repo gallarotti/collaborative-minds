@@ -196,5 +196,29 @@ MATCH (newHead)<-[:LatestCard]-(currentList)-[oldRel:LatestCard]->(oldHead)
 DELETE oldRel 
 CREATE (newHead)-[:PreviousCard]->(oldHead)
 
+// create all Head pointers
+match p=(n)-[:TailProject]->(pj:Project)-[:PreviousProject*]->(pj1:Project)
+WHERE NOT (pj1)-[:PreviousProject]->()
+CREATE (n)-[r:HeadProject]->(pj1)
+return r
+
+
+MATCH (currentList:List)-[currentTailRel:TailCard]->(currentTail:Card) WHERE ID(currentList) = 5
+CREATE UNIQUE (currentList)-[newTailRel:TailCard]->(newCard:Card { title: "yet another test card", description: "" })
+CREATE UNIQUE (newCard)-[newPrevRel:PreviousCard]->(currentTail)
+CREATE UNIQUE (currentTail)-[newNextRel:NextCard]->(newCard)
+DELETE currentTailRel
+WITH COUNT(newCard)
+MATCH (emptyList:List)-[fakeTailRel:TailCard]->(emptyList), 
+(emptyList)-[fakeHeadRel:HeadCard]->(emptyList) 
+WHERE ID(emptyList) = 5
+WITH emptyList, fakeTailRel, fakeHeadRel
+CREATE UNIQUE (emptyList)-[:TailCard]->(newCard:Card { title: "test card", description: "" })
+CREATE UNIQUE (emptyList)-[:HeadCard]->(newCard)
+DELETE fakeTailRel, fakeHeadRel
+RETURN newCard
+
+
+
 
 

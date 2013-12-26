@@ -22,6 +22,7 @@ app.get("/projects", projects.findAll);
 app.get("/projects/:id", projects.findById);
 app.get("/lists/:id", lists.findAll);
 app.get("/cards/:id", cards.findAll);
+app.post("/cards", cards.addCard);
 
 app.listen(3000);
 console.log("collaborative-minds server listening on port 3000...");

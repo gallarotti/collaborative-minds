@@ -14,6 +14,11 @@ collaborativeMindsApp.controller("ListsCtrl", function (ListsSvc, CardsSvc, LogS
 
     this.addCard = function (currentList) {
     	LogSvc.write("addCard to list [" + currentList.list.id + "]: [" + currentList.newCardTitle + "]");
+    	var newCard = {
+	        title: currentList.newCardTitle,
+	        listId: currentList.list.id
+	    };
 
+		CardsSvc.save(newCard);
     };
 });
