@@ -1,7 +1,6 @@
 var collaborativeMindsApp = angular.module("collaborativeMindsApp", [
 	"ngRoute",
-	"ngResource",
-	"ui.bootstrap"
+	"ngResource"
 ]);
 
 collaborativeMindsApp.config(["$routeProvider",

@@ -12,7 +12,7 @@ exports.findAll = function (req, res){
             res.send(HTTPStatus.INTERNAL_SERVER_ERROR,'Internal Server Error'); 
         }
         else {
-            var query = "start n=node(" + listid + ") MATCH n-[:LatestCard|PreviousCard*]->(card:Card) return card"
+            var query = "start n=node(" + listid + ") MATCH n-[:HeadCard|NextCard*]->(card:Card) return card"
             graph.query(query, {id:0}, function (err, results) {
                 if (err) {
                     res.send(HTTPStatus.INTERNAL_SERVER_ERROR, "Internal Server Error for query:" + query); 

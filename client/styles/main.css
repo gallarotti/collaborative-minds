@@ -15,8 +15,8 @@ body {
     position: absolute;
     border-radius: 0;
 }
-.onepage-row { left: 0; right: 0; }
-.onepage-col { top: 0; bottom: 0; }
+.onepage-row { left: 0; right: 0; overflow: hidden; }
+.onepage-col { top: 0; bottom: 0; overflow: hidden; }
 .onepage-scroll-x { overflow-x: auto; }
 .onepage-scroll-y { overflow-y: auto; }
 
@@ -98,6 +98,7 @@ body {
     bottom: 0;
     max-height:100%;
     margin: 0px;
+    z-index: 500;
 }
 
 .state-panel-heading {
@@ -117,6 +118,12 @@ body {
     bottom: 35px;
     left:0;
     right:0;
+    padding: 10px;
+}
+
+.well {
+    padding: 10px;
+    margin-bottom: 10px;
 }
 
 .state-panel-footer {
@@ -136,17 +143,3 @@ body {
     margin: 20px auto;
     width: 690px;
 }
-
-/* for modals to work with bootstrap 3.x */
-
-.modal {
-  display: block;
-}
-
-.hide {
-    display: none;
-}
-
-/* required by ui-bootstrap */
-
-.nav, .pagination, .carousel a { cursor: pointer; }
