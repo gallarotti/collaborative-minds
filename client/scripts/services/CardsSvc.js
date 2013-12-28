@@ -7,7 +7,10 @@ collaborativeMindsApp.service("CardsSvc", function($resource) {
 	            url:"http://localhost:3000/cards/:listId", 
 	            params:{listId:"@listId"}
 	        },            
-            update: {method: "PUT"}
+            save: {
+            	method:'POST',
+            	isArray:true
+            }
         }
     );
 });

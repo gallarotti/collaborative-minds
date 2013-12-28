@@ -203,21 +203,37 @@ CREATE (n)-[r:HeadProject]->(pj1)
 return r
 
 
-MATCH (currentList:List)-[currentTailRel:TailCard]->(currentTail:Card) WHERE ID(currentList) = 5
-CREATE UNIQUE (currentList)-[newTailRel:TailCard]->(newCard:Card { title: "yet another test card", description: "" })
-CREATE UNIQUE (newCard)-[newPrevRel:PreviousCard]->(currentTail)
-CREATE UNIQUE (currentTail)-[newNextRel:NextCard]->(newCard)
-DELETE currentTailRel
-WITH COUNT(newCard)
-MATCH (emptyList:List)-[fakeTailRel:TailCard]->(emptyList), 
-(emptyList)-[fakeHeadRel:HeadCard]->(emptyList) 
-WHERE ID(emptyList) = 5
-WITH emptyList, fakeTailRel, fakeHeadRel
-CREATE UNIQUE (emptyList)-[:TailCard]->(newCard:Card { title: "test card", description: "" })
-CREATE UNIQUE (emptyList)-[:HeadCard]->(newCard)
-DELETE fakeTailRel, fakeHeadRel
-RETURN newCard
+	MATCH (currentList:List)-[currentTailRel:TailCard]->(currentTail:Card) WHERE ID(currentList) = 6
+	CREATE (currentList)-[newTailRel:TailCard]->(newCard:Card { title: "yet another test card", description: "" })
+	CREATE (newCard)-[newPrevRel:PreviousCard]->(currentTail)
+	CREATE (currentTail)-[newNextRel:NextCard]->(newCard)
+	DELETE currentTailRel
+	WITH count(newCard) as countNewCard
+	WHERE countNewCard = 0
+	MATCH (emptyList:List)-[fakeTailRel:TailCard]->(emptyList), 
+	(emptyList)-[fakeHeadRel:HeadCard]->(emptyList) 
+	WHERE ID(emptyList) = 6
+	WITH emptyList, fakeTailRel, fakeHeadRel
+	CREATE (emptyList)-[:TailCard]->(newCard:Card { title: "test card", description: "" })
+	CREATE (emptyList)-[:HeadCard]->(newCard)
+	DELETE fakeTailRel, fakeHeadRel
+	RETURN true
 
+	MATCH (currentList:List)-[currentTailRel:TailCard]->(currentTail:Card) WHERE ID(currentList) = {{LIST_ID}}
+	CREATE (currentList)-[newTailRel:TailCard]->(newCard:Card { title: {{TITLE}}, description: {{DESCRIPTION}} })
+	CREATE (newCard)-[newPrevRel:PreviousCard]->(currentTail)
+	CREATE (currentTail)-[newNextRel:NextCard]->(newCard)
+	DELETE currentTailRel
+	WITH count(newCard) as countNewCard
+	WHERE countNewCard = 0
+	MATCH (emptyList:List)-[fakeTailRel:TailCard]->(emptyList), 
+	(emptyList)-[fakeHeadRel:HeadCard]->(emptyList) 
+	WHERE ID(emptyList) = {{LIST_ID}}
+	WITH emptyList, fakeTailRel, fakeHeadRel
+	CREATE (emptyList)-[:TailCard]->(newCard:Card { title: {{TITLE}}, description: {{DESCRIPTION}} })
+	CREATE (emptyList)-[:HeadCard]->(newCard)
+	DELETE fakeTailRel, fakeHeadRel
+	RETURN true
 
 
 
