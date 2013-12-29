@@ -1,3 +1,3 @@
-collaborativeMindsApp.controller("LogCtrl", function (LogSvc) {
-	this.logService = LogSvc;
+collaborativeMindsApp.controller("LogCtrl", function ($scope, LogSvc) {
+	$scope.logService = LogSvc;
 });

@@ -1,10 +1,10 @@
-<div id="onepage-content" class="onepage-row onepage-scroll-y" ng-controller="ProjectsCtrl as projectController">
+<div id="onepage-content" class="onepage-row onepage-scroll-y" ng-controller="ProjectsCtrl">
 	<div id="projects-wrapper">
 		<h3>Projects</h3>
 		<div class="list-group">
-  			<a href="#/project/{{currentProject.node.id}}" class="list-group-item" ng-repeat="currentProject in projectController.projects">
-    			<h4 class="list-group-item-heading">{{currentProject.node.data.company}}</h4>
-    			<p class="list-group-item-text">{{currentProject.node.data.description}}</p>
+  			<a href="#/project/{{proj.node.id}}" class="list-group-item" ng-repeat="proj in projects">
+    			<h4 class="list-group-item-heading">{{proj.node.data.company}}</h4>
+    			<p class="list-group-item-text">{{proj.node.data.description}}</p>
   			</a>
 		</div>
 	</div>

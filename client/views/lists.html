@@ -1,6 +1,6 @@
-<div id="onepage-content" class="onepage-row onepage-scroll-x" ng-controller="ProjectsCtrl as projectController">
-	<div class="relative-to-this" ng-controller="ListsCtrl as listsController">
-		<div class="content-col onepage-col" ng-repeat="currList in listsController.lists">
+<div id="onepage-content" class="onepage-row onepage-scroll-x">
+	<div class="relative-to-this" ng-controller="ListsCtrl">
+		<div class="content-col onepage-col" ng-repeat="currList in lists">
 			<div class="relative-to-this">
 				<div class="panel panel-default state-panel">
 					<div class="relative-to-this">
@@ -8,7 +8,12 @@
 							<h3 class="panel-title">{{currList.list.data.name}} [{{currList.list.id}}]</h3>
 						</div>
 						<div class="panel-body state-panel-body onepage-scroll-y">
-							<div class="well sortable-well" ng-repeat="currentCard in currList.list.cards">
+							<div class="well well-sm" ng-repeat="currentCard in currList.list.cards">
+								<div class="btn-group">
+  									<button type="button" class="btn btn-default btn-xs" ng-click="archiveCard(currentCard)">
+										<span class="glyphicon glyphicon-remove-sign"></span>
+									</button>
+								</div>
 								{{currentCard.card.data.title}} [{{currentCard.card.id}}]
 							</div>										
 							<div class="panel panel-default">
@@ -16,7 +21,7 @@
 									<input type="text" class="form-control" ng-model="currList.newCardTitle">
 								</div>
 								<div class="panel-body">
-									<button class="btn btn-default btn-xs" ng-click="listsController.addCard(currList)">
+									<button class="btn btn-default btn-xs" ng-click="addCard(currList)">
 										<span class="glyphicon glyphicon-plus-sign"></span> Add Card
 									</button>
 								</div>

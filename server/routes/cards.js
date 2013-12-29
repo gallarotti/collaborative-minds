@@ -70,3 +70,18 @@ exports.addCard = function(req, res) {
         }
     });
 }
+
+exports.archiveCard = function(req, res) {
+    var card = req.body;
+    console.log("Archiving card: " + JSON.stringify(card));
+    res.set({'Content-Type': 'text/json'}); // setting content type
+    neo4j.connect(neo4jurl, function (err, graph) { //Connecting neo4J
+        if(err) {
+            res.send(HTTPStatus.INTERNAL_SERVER_ERROR,'Internal Server Error'); 
+        }
+        else {
+            console.log("Archiving card with id = " + card.card.id);
+            res.send(HTTPStatus.OK,JSON.stringify(card));
+        }
+    });
+}

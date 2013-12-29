@@ -7,7 +7,12 @@ collaborativeMindsApp.service("CardsSvc", function($resource) {
 	            url:"http://localhost:3000/cards/:listId", 
 	            params:{listId:"@listId"}
 	        },            
-            save: {
+	        archiveCard: {
+	            method: "POST", 
+	            isArray:true, 
+	            url:"http://localhost:3000/cards/archive"
+	        },            
+            create: {
             	method:'POST',
             	isArray:true
             }
