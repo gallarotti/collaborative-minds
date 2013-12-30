@@ -235,29 +235,6 @@ return r
 	DELETE fakeTailRel, fakeHeadRel
 	RETURN true
 
-START n=node(49) 
-MATCH (before:Card)-[n1:NextCard]->n, n-[n2:NextCard]->(after:Card) 
-CREATE (before)-[:NextCard]->(after)
-CREATE (after)-[:PreviousCard]->(before)
-WITH n, count(before) WHERE count(before)=0
-MATCH (list:List)-[h1:HeadCard]->n, n-[n1:NextCard]->(after:Card)
-CREATE (list)-[:HeadCard]->(after)
-WITH n
-MATCH (list:List)-[t1:TailCard]->n, n-[p1:PreviousCard]->(before:Card)
-CREATE (list)-[:TailCard]->(before)
-WITH n
-MATCH (n1)-[r]-(n)
-DELETE r
-WITH n
-DELETE n
-
-
-MATCH (before:Card)-[n1:NextCard]->(middle:Card)-[n2:NextCard]->(after:Card) WHERE ID(middle)=48
-WITH collect(middle) as middleCards
-MATCH (list1:List)-[h1:HeadCard]->(first:Card)-[n1:NextCard]->(second:Card) WHERE ID(first)=48
-RETURN middleCards
-MATCH (list2:List)-[t1:TailCard]->(last:Card)-[p1:PreviousCard]->(nextToLast:Card) WHERE ID(last)=48
-RETURN countMiddle, countFirst, count(last) as countLast
 
 	// archive a node in the middle of a doubly-linked list
 	MATCH (before:Card)-[n1:NextCard]->(middle:Card)-[n2:NextCard]->(after:Card) WHERE ID(middle)=48
@@ -305,3 +282,24 @@ RETURN countMiddle, countFirst, count(last) as countLast
 	CREATE (archive)-[r:Archived { archivedOn : timestamp() }]->(only)
 	RETURN only
 
+MATCH (before:Card)-[n1:NextCard]->(middle:Card)-[n2:NextCard]->(after:Card) WHERE ID(middle)=48
+CREATE (before)-[:NextCard]->(after)
+CREATE (after)-[:PreviousCard]->(before)
+WITH middle, before, after
+MATCH (middle)-[r]-(n)
+DELETE r
+WITH middle, before, after
+MATCH (before)<-[:NextCard*]-(c:Card)<-[:HeadCard]-(l:List)<-[:NextList*]-(fl:List)<-[:HeadList]-(p:Project)-[:ArchiveList]->(archive:List)
+CREATE (archive)-[r:Archived { archivedOn : timestamp() }]->(middle)
+RETURN middle
+
+// archive the head node of a doubly-linked list
+MATCH (list:List)-[h1:HeadCard]->(head:Card)-[n1:NextCard]->(second:Card) WHERE ID(head)=48
+CREATE (list)-[:HeadCard]->(second)
+WITH head, list
+MATCH (head)-[r]-(n)
+DELETE r
+WITH head, list
+MATCH (list)<-[:NextList*]-(fl:List)<-[:HeadList]-(p:Project)-[:ArchiveList]->(archive:List)
+CREATE (archive)-[r:Archived { archivedOn : timestamp() }]->(head)
+RETURN head
