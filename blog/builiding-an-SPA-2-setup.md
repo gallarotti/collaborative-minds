@@ -86,7 +86,7 @@ Once the installation has completed, you can start Neo4J from the command line w
 
 This will get a Neo4j instance running on [http://localhost:7474](http://localhost:7474). Simply navigate to that URL with your browser to access the database browser utility, which includes some tutorials as well:
 
-![Neo4J Broswer](https://raw.github.com/gallarotti/collaborative-minds/master/blog/images/neo4j.png)
+![Neo4J Broswer](http://1000linesofcode.files.wordpress.com/2013/12/neo4j.png)
 
 ### Application Organization
 When building a **Single Page Application** with **AngularJS**, we are going to be building essentially two pieces:

@@ -33,7 +33,7 @@ Next, I created [my first repo](https://github.com/gallarotti/collaborative-mind
 
 A side effect of working with GitHub was the rediscovery of [the Markdown language](http://daringfireball.net/projects/markdown/), a minimal markup language used for all README files in GitHub. Being a **plain text** formatting syntax, no special editor is needed to write content using Markdown, although there are some specially-designed editors which preview markdown files with styles. For now I picked [Mou](http://mouapp.com/) a very nice markdown editor which provides instant preview side-by-side to the text being edited.
 
-![Mou Editor](https://raw.github.com/gallarotti/collaborative-minds/master/blog/images/mou.png)
+![Mou Editor](http://1000linesofcode.files.wordpress.com/2013/12/mou.png)
 
 Coincidentally, just a few weeks ago, finally, [Wordpress has announced](http://1000linesofcode.wordpress.com/2013/12/29/perfect-timing-markdown-on-wordpress/) that they are now supporting GitHub's version of Markdown within the blog post editor! Perfect timing for me to really get addicted to this simple writing tool! Because Markdown is simple enough to learn in a few minutes, clean and elegant enough to be readable no matter your context, and it is becoming the defacto markup language of the Internet, at least among the slightly geekier types who do know markup languages :)
 
