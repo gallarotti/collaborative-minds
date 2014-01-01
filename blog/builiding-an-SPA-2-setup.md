@@ -183,8 +183,8 @@ The only caveat with doing this is that the database will still be the same. Thi
 
 This will stop the database server, completely remove the data folder it relies on, and then restart the server, which will reinitialize itself and create a new data folder with the same name at the same exact location.
 
-
-
+#### Note
+I believe that having these "reset scripts" handy will become very useful when you find yourself working on multiple projects at the same time. Sure you could have multiple Neo4J servers running on your machine, one for every project you work on, but I feel that after a while it might become unfeasible to do so. So when you switch project development all you have to do is remove your DB data folder as shown above, and then run your project cypher reset script.
   
 
 
