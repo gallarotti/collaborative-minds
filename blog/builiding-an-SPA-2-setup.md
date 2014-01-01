@@ -134,6 +134,57 @@ In the end, there is no right way to do this. Everyone has their way, some like 
 
 You are all set, ready for action! I hope you have found this post useful. It took me a while to gather all the information I needed to get to this point. I hope that this summary will help you save some time and be able to get to the fun part sooner :)
 
+### Some Optional Goodies
+If, like me, you decided to use Sublime Text (either version 2 or 3), if you haven't done so yet, you might want to install [Sublime Package Control](https://sublime.wbond.net/). The installation is simple and takes just a few seconds. Go to the [installation page](https://sublime.wbond.net/installation) and copy the correct script for your version of Sublime Text in the Sublime Text console.
+
+Once that's installed, simply open the Command Palette (cmd+shift+p),
+select "Install Package" and then select "Cypher". This will install [Sublime Cypher](https://github.com/kollhof/sublime-cypher), syntax highlighting for Neo4j's Cypher query language in Sublime Text. You will want to name your cypher files with the `.cql` extension so that the syntax highlighter will recognize them.
+
+Within Sublime Text's Package Installer you will also be able to find the [AngularJS](https://github.com/angular-ui/AngularJS-sublime-package) package, which you may want to install as well.
+
+### Neo4J Newbie Tip: How to reset your database
+If you are like me, especially during your learning phase of development with Neo4J, you will find yourself building some basic graphs "by hand" as starting point and then running cypher queries that will, sooner or later, mess up your graph. 
+
+At that point you have two options: 
+
+1. manually fix the parts of the graph that were affected to go back to a good state to continue development
+2. reset your database to an initial well known state
+
+I have done #1 and got bored pretty quickly with that. Finally I figured out the best way to do #2.
+
+First, write a .cql script which builds the "well known state" that you want to be able to go back to. It might me just a few nodes and relationships or a much more complex structure. Whatever it is, the entire script should look a bit like the following:
+
+	START n = node(*) 
+	MATCH n-[r]-() 
+	DELETE n, r 
+	WITH COUNT(n) AS hack
+	CREATE 
+	(Neo:Crew { name:'Neo' }),
+	(Morpheus:Crew { name: 'Morpheus' }),
+	(Trinity:Crew { name: 'Trinity' }),
+	(Cypher:Crew:Matrix { name: 'Cypher' }),
+	(Smith:Matrix { name: 'Agent Smith' }),
+	(Architect:Matrix { name:'The Architect' }),
+	(Neo)-[:KNOWS]->(Morpheus),
+	(Neo)-[:LOVES]->(Trinity),
+	(Morpheus)-[:KNOWS]->(Trinity),
+	(Morpheus)-[:KNOWS]->(Cypher),
+	(Cypher)-[:KNOWS]->(Smith),
+	(Smith)-[:CODED_BY]->(Architect)
+
+The first few lines of the script kill all nodes and relationships from the database. Next comes the long `CREATE` command, which rebuilds the "well known state" that needs to be recovered.
+
+The only caveat with doing this is that the database will still be the same. This means, for example, that node IDs will keep increasing every time you re-run the above script. If you want to **really** reset your database, just switch to the Terminal and run the following **before** you run the cypher script above:
+
+	cd /usr/local/Cellar/neo4j/2.0.0/libexec/data
+	neo4j stop
+	rm -rf graph.db/
+	neo4j start
+
+This will stop the database server, completely remove the data folder it relies on, and then restart the server, which will reinitialize itself and create a new data folder with the same name at the same exact location.
+
+
+
   
 
 
