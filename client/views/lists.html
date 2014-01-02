@@ -16,16 +16,18 @@
 								</div>
 								{{currentCard.card.data.title}} [{{currentCard.card.id}}]
 							</div>										
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<input type="text" class="form-control" ng-model="currList.newCardTitle">
-								</div>
-								<div class="panel-body">
-									<button class="btn btn-default btn-xs" ng-click="addCard(currList)">
-										<span class="glyphicon glyphicon-plus-sign"></span> Add Card
-									</button>
-								</div>
-							</div>										
+							<form ng-submit="addCard(currList)">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<input type="text" class="form-control" ng-model="currList.newCardTitle" placeholder="new card title">
+									</div>
+									<div class="panel-body">
+										<button class="btn btn-default btn-xs">
+											<span class="glyphicon glyphicon-plus-sign"></span> Add Card
+										</button>
+									</div>
+								</div>										
+							</form>
 						</div>
 						<div class="panel-footer state-panel-footer">
 						</div>

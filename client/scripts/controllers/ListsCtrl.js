@@ -12,15 +12,17 @@ collaborativeMindsApp.controller("ListsCtrl", function ($scope, ListsSvc, CardsS
 	        listId: currentList.list.id
 	    };
 		CardsSvc.create(newCard, function() {
-			currentList.cards = CardsSvc.getListCards({listId:currentList.list.id}, function() {
+			//currentList.cards = CardsSvc.getListCards({listId:currentList.list.id}, function() {
 				loadCards($scope.currentProjectId);
-			});	
+			//});	
 		});
     };
 
     $scope.archiveCard = function (currentCard) {
     	LogSvc.write("archiveCard [" + currentCard.card.id + "]");
-    	CardsSvc.archiveCard(currentCard);
+    	CardsSvc.archiveCard(currentCard, function() {
+			loadCards($scope.currentProjectId);
+		});
     };
 
     function loadCards(projectId) {

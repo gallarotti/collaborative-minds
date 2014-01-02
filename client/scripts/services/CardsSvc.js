@@ -9,7 +9,7 @@ collaborativeMindsApp.service("CardsSvc", function($resource) {
 	        },            
 	        archiveCard: {
 	            method: "POST", 
-	            isArray:true, 
+	            isArray:false, 
 	            url:"http://localhost:3000/cards/archive"
 	        },            
             create: {
