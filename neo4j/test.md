@@ -11,7 +11,7 @@
 </table>
 
 
-### TEST #1: ARCHIVE (n) CARDS (from the same list)
+### TEST #2: ARCHIVE (n) CARDS (from the same list)
 
 <table>
 <tr><td># CARDS</td><td>TIME 1 (ms)</td><td>TIME 2 (ms)</td><td>TIME 3 (ms)</td></tr>
@@ -23,7 +23,7 @@
 
 ## OLD QUERIES
 
-### TEST #1: INSERT (n) CARDS (in the same list)
+### TEST #3: INSERT (n) CARDS (in the same list)
 
 <table>
 <tr><td># CARDS</td><td>TIME 1 (ms)</td><td>TIME 2 (ms)</td><td>TIME 3 (ms)</td></tr>
@@ -34,7 +34,7 @@
 </table>
 
 
-### TEST #1: ARCHIVE (n) CARDS (from the same list)
+### TEST #4: ARCHIVE (n) CARDS (from the same list)
 
 <table>
 <tr><td># CARDS</td><td>TIME 1 (ms)</td><td>TIME 2 (ms)</td><td>TIME 3 (ms)</td></tr>
