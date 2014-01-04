@@ -74,8 +74,6 @@ exports.archiveCard = function(req, res) {
         }
         else {
             console.log("Archiving card with id = " + card.card.id);
-            res.send(HTTPStatus.OK,JSON.stringify(card));
-
             var query = [
                 "MATCH (theCard)<-[:NEXT_CARD|HEAD_CARD*]-(l:List)<-[:NEXT_LIST*]-(h)<-[:HEAD_LIST]-(p:Project)-[:ARCHIVE]->(theArchive:Archive)", 
                 "WHERE ID(theCard)={cardid}",

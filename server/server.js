@@ -6,6 +6,7 @@ var application_root = __dirname,
 var projects = require("./routes/projects.js");
 var lists = require("./routes/lists.js");
 var cards = require("./routes/cards.js");
+var tests = require("./routes/tests.js");
 
 var app = express();
 
@@ -36,6 +37,9 @@ app.get("/lists/:id", lists.findAll);
 app.get("/cards/:id", cards.findAll);
 app.post("/cards", cards.addCard);
 app.post("/cards/archive", cards.archiveCard);
+
+app.post("/cards/tests/createMultiple", tests.addCards);
+app.post("/cards/tests/archiveMultiple", tests.archiveCards);
 
 app.listen(3000);
 console.log("collaborative-minds server listening on port 3000...");

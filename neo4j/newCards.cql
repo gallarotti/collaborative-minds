@@ -24,4 +24,19 @@
     DELETE tp,pt
     RETURN theCard
 
+    MATCH (theList:List)-[:HEAD_CARD]->(h)-[:NEXT_CARD]->(theCard) WHERE ID(theList)=xxx
+    WITH theCard
+    MATCH (theCard)<-[:NEXT_CARD|HEAD_CARD*]-(l:List)<-[:NEXT_LIST*]-(h)<-[:HEAD_LIST]-(p:Project)-[:ARCHIVE]->(theArchive:Archive) 
+    WITH theCard, theArchive
+    MATCH (previous)-[ptc:NEXT_CARD]->(theCard)-[tcn:NEXT_CARD]->(next)-[ntc:PREV_CARD]->(theCard)-[tcp:PREV_CARD]->(previous)
+    WITH theCard, theArchive, previous, next, ptc, tcn, ntc, tcp
+    CREATE (previous)-[:NEXT_CARD]->(next)-[:PREV_CARD]->(previous)
+    DELETE ptc, tcn, ntc, tcp
+    WITH theCard, theArchive
+    MATCH (theArchive)-[tat:TAIL_CARD]->(archiveTail)-[tp:PREV_CARD]->(archivePrevious)-[pt:NEXT_CARD]->(archiveTail) 
+    WITH theCard, theArchive, archiveTail, tp, pt, archivePrevious
+    CREATE (archiveTail)-[:PREV_CARD]->(theCard)-[:NEXT_CARD]->(archiveTail)
+    CREATE (theCard)-[:PREV_CARD]->(archivePrevious)-[:NEXT_CARD]->(theCard)
+    DELETE tp,pt
+    RETURN theCard
 

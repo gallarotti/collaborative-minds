@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="collaborativeMindsApp">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>collaborative_minds tests</title>
+		<script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+		<script data-require="angular.js@1.2.1" data-semver="1.2.1" src="http://code.angularjs.org/1.2.1/angular.js"></script>
+		<script data-require="angular-resource@*" data-semver="1.2.1" src="http://code.angularjs.org/1.2.1/angular-resource.js"></script>
+		<script data-require="angular-route@*" data-semver="1.2.1" src="http://code.angularjs.org/1.2.1/angular-route.js"></script>
+  		<script data-require="bootstrap@3.0.2" data-semver="3.0.2" src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.js"></script>
+  		<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" />
+		<script src="scripts/app.js"></script>
+		<script src="scripts/services/TestsSvc.js"></script>
+		<script src="scripts/controllers/TestsCtrl.js"></script>
+	</head>
+	<body>
+		<div class="container" ng-controller="TestsCtrl">
+			<div class="row">
+        		<div class="col-md-3">
+        		</div>
+        		<div class="col-md-9">
+					<div class="page-header">
+  						<h1 id="overview">Performance Testing</h1>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h2 class="panel-title">Testing Node Insertion</h2>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-lg-4">
+									<input type="text" class="form-control" ng-model="testSettings.listId" placeholder="List ID">
+								</div>
+								<div class="col-lg-4">
+									<input type="text" class="form-control" ng-model="testSettings.numOfCards" placeholder="# Cards">
+								</div>
+								<div class="col-lg-4">
+									<button class="btn btn-default" ng-click="addCards()">Run Test</button>
+								</div>
+							</div>
+						</div>
+						<ul class="list-group">
+							<li class="list-group-item" ng-repeat="addCardsResult in addCardsTestResults">{{addCardsResult}}</li>
+						</ul>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h2 class="panel-title">Testing Node Archival</h2>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-lg-4">
+									<input type="text" class="form-control" ng-model="testSettings.listId" placeholder="List ID">
+								</div>
+								<div class="col-lg-4">
+									<input type="text" class="form-control" ng-model="testSettings.numOfCards" placeholder="# Cards">
+								</div>
+								<div class="col-lg-4">
+									<button class="btn btn-default" ng-click="archiveCards()">Run Test</button>
+								</div>
+							</div>
+						</div>
+						<ul class="list-group">
+							<li class="list-group-item" ng-repeat="archiveCardsResult in archiveCardsTestResults">{{archiveCardsResult}}</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
