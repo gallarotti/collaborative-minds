@@ -1,4 +1,3 @@
-START n = node(*) 
 MATCH n-[r]-() 
 DELETE n, r 
 WITH COUNT(n) AS hack
@@ -34,6 +33,12 @@ CREATE
 
 (project1_Archive:Archive),
 (project1)-[:ARCHIVE]->(project1_Archive),
+(project1_HeadOfArchiveQueue:QueueHead),
+(project1_TailOfArchiveQueue:QueueTail),
+(project1_Archive)-[:HEAD_CARD]->(project1_HeadOfArchiveQueue),
+(project1_Archive)-[:TAIL_CARD]->(project1_TailOfArchiveQueue),
+(project1_HeadOfArchiveQueue)-[:NEXT_CARD]->(project1_TailOfArchiveQueue),
+(project1_TailOfArchiveQueue)-[:PREV_CARD]->(project1_HeadOfArchiveQueue),
 
 (project1_ToDoList:List { name: "To Do" }),
 (project1_InProgressList:List { name: "In Progress" }),
@@ -79,6 +84,12 @@ CREATE
 
 (project2_Archive:Archive),
 (project2)-[:ARCHIVE]->(project2_Archive),
+(project2_HeadOfArchiveQueue:QueueHead),
+(project2_TailOfArchiveQueue:QueueTail),
+(project2_Archive)-[:HEAD_CARD]->(project2_HeadOfArchiveQueue),
+(project2_Archive)-[:TAIL_CARD]->(project2_TailOfArchiveQueue),
+(project2_HeadOfArchiveQueue)-[:NEXT_CARD]->(project2_TailOfArchiveQueue),
+(project2_TailOfArchiveQueue)-[:PREV_CARD]->(project2_HeadOfArchiveQueue),
 
 (project2_ToDoList:List { name: "To Do" }),
 (project2_InProgressList:List { name: "In Progress" }),
@@ -124,6 +135,12 @@ CREATE
 
 (project3_Archive:Archive),
 (project3)-[:ARCHIVE]->(project3_Archive),
+(project3_HeadOfArchiveQueue:QueueHead),
+(project3_TailOfArchiveQueue:QueueTail),
+(project3_Archive)-[:HEAD_CARD]->(project3_HeadOfArchiveQueue),
+(project3_Archive)-[:TAIL_CARD]->(project3_TailOfArchiveQueue),
+(project3_HeadOfArchiveQueue)-[:NEXT_CARD]->(project3_TailOfArchiveQueue),
+(project3_TailOfArchiveQueue)-[:PREV_CARD]->(project3_HeadOfArchiveQueue),
 
 (project3_ToDoList:List { name: "To Do" }),
 (project3_InProgressList:List { name: "In Progress" }),
@@ -158,5 +175,5 @@ CREATE
 (project3_DoneList)-[:HEAD_CARD]->(project3_DoneList_HeadOfCardsQueue),
 (project3_DoneList)-[:TAIL_CARD]->(project3_DoneList_TailOfCardsQueue),
 (project3_DoneList_HeadOfCardsQueue)-[:NEXT_CARD]->(project3_DoneList_TailOfCardsQueue),
-(project3_DoneList_TailOfCardsQueue)-[:PREV_CARD]->(project3_DoneList_HeadOfCardsQueue),
+(project3_DoneList_TailOfCardsQueue)-[:PREV_CARD]->(project3_DoneList_HeadOfCardsQueue)
 

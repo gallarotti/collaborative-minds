@@ -6,6 +6,7 @@ node {
   text-color-internal: #000000;
   caption: '{id}';
   font-size: 16px;
+  font-weight: bold;
 }
 
 relationship {
@@ -51,5 +52,11 @@ node.List {
   color: #4356C0;
   border-color: #3445A2;
   text-color-internal: #FFFFFF;
+}
+
+node.Card {
+  color: #FCC940;
+  border-color: #F3BA25;
+  text-color-internal: #000000;
 }
 
