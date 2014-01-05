@@ -37,6 +37,7 @@ app.get("/lists/:id", lists.findAll);
 app.get("/cards/:id", cards.findAll);
 app.post("/cards", cards.addCard);
 app.post("/cards/archive", cards.archiveCard);
+app.post("/cards/move", cards.moveCard);
 
 app.post("/cards/tests/createMultiple", tests.addCards);
 app.post("/cards/tests/archiveMultiple", tests.archiveCards);

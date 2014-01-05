@@ -133,6 +133,13 @@ body {
     border-radius: 3px;
 }
 
+.invisible {
+    padding:0;
+    margin:0;
+    margin-bottom: -10px;
+    height:5px;
+}
+
 .state-panel-footer {
     position:absolute;
     height: 35px;

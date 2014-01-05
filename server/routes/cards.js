@@ -105,3 +105,64 @@ exports.archiveCard = function(req, res) {
         }
     });
 }
+
+exports.moveCard = function(req, res) {
+    var moveCardSettings = req.body;
+    console.log("Moving card: " + JSON.stringify(moveCardSettings));
+    res.set({'Content-Type': 'text/json'}); // setting content type
+    neo4j.connect(neo4jurl, function (err, graph) { //Connecting neo4J
+        if(err) {
+            res.send(HTTPStatus.INTERNAL_SERVER_ERROR,'Internal Server Error'); 
+        }
+        else {
+            var query = [
+                "MATCH (previous)-[ptc:NEXT_CARD]->(theCard)-[tcn:NEXT_CARD]->(next)-[ntc:PREV_CARD]->(theCard)-[tcp:PREV_CARD]->(previous)",
+                "WHERE ID(theCard)={theCardId}",
+                "WITH theCard, previous, next, ptc, tcn, ntc, tcp",
+                "CREATE (previous)-[:NEXT_CARD]->(next)-[:PREV_CARD]->(previous)",
+                "DELETE ptc, tcn, ntc, tcp",
+                "WITH theCard",
+                "MATCH (toList:List)-[tlh:HEAD_CARD]->(head)-[hn:NEXT_CARD]->(next)-[nh:PREV_CARD]->(head)", 
+                "WHERE ID(toList)={toListId}",
+                "WITH theCard, toList, head, next, tlh, hn, nh",
+                "CREATE (head)-[:NEXT_CARD]->(theCard)-[:PREV_CARD]->(head)",
+                "CREATE (next)-[:PREV_CARD]->(theCard)-[:NEXT_CARD]->(next)",
+                "DELETE hn,nh"
+            ];
+            if(!moveCardSettings.moveToHead) {
+                query = [
+                    "MATCH (previous)-[ptc:NEXT_CARD]->(theCard)-[tcn:NEXT_CARD]->(next)-[ntc:PREV_CARD]->(theCard)-[tcp:PREV_CARD]->(previous)",
+                    "WHERE ID(theCard)={theCardId}",
+                    "WITH theCard, previous, next, ptc, tcn, ntc, tcp",
+                    "CREATE (previous)-[:NEXT_CARD]->(next)-[:PREV_CARD]->(previous)",
+                    "DELETE ptc, tcn, ntc, tcp",
+                    "WITH theCard",
+                    "MATCH (prev)-[pn:NEXT_CARD]->(next)-[np:PREV_CARD]->(prev)", 
+                    "WHERE ID(prev)={prevCardId}",
+                    "WITH theCard, prev, next, np, pn",
+                    "CREATE (prev)-[:NEXT_CARD]->(theCard)-[:PREV_CARD]->(prev)",
+                    "CREATE (next)-[:PREV_CARD]->(theCard)-[:NEXT_CARD]->(next)",
+                    "DELETE pn,np"
+                ];
+            }
+            graph.query(query.join('\n'), 
+                {
+                    theCardId:parseInt(moveCardSettings.theCard.id),
+                    toListId:parseInt(moveCardSettings.toList.id),
+                    prevCardId:parseInt(moveCardSettings.prevCard.id)
+                }, 
+                function (err, results) {
+                    if (err) {
+                        console.log(err);
+                        console.log(err.stack);
+                        res.send(HTTPStatus.INTERNAL_SERVER_ERROR, "Internal Server Error for query:" + query); 
+                    }
+                    else {
+                        console.log(JSON.stringify(results));
+                        res.send(HTTPStatus.OK,JSON.stringify(results)); 
+                    }       
+                }); 
+
+        }
+    });
+}

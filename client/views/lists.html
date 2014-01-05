@@ -10,7 +10,8 @@
 						</button>
 					</div>
 					{{currentCard.card.data.title}} [{{currentCard.card.id}}]
-				</div>										
+				</div>
+				<div class="invisible" ng-show="currList.list.cards.length==0">&nbsp;</div>										
 			</div>
 			<form ng-submit="addCard(currList)">
 				<div class="panel panel-default">

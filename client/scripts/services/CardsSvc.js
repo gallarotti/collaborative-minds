@@ -12,6 +12,11 @@ collaborativeMindsApp.service("CardsSvc", function($resource) {
 	            isArray:true, 
 	            url:"http://localhost:3000/cards/archive"
 	        },            
+	        moveCard: {
+	            method: "POST", 
+	            isArray:true, 
+	            url:"http://localhost:3000/cards/move"
+	        },            
             create: {
             	method:'POST',
             	isArray:true

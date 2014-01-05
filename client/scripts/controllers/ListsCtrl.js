@@ -15,27 +15,43 @@ collaborativeMindsApp.controller("ListsCtrl", function ($scope, ListsSvc, CardsS
             // take a snapshot of the list AFTER the move happens
             $scope.sortableLists.after = (JSON.parse(JSON.stringify($scope.lists)));
 
-            // LogSvc.write("[stop]:[" + ui.item.sortable.index + "]->[" + ui.item.sortable.dropindex + 
-            //     "] :: " + $scope.printList($scope.sortableLists.before) + " -> " + $scope.printList($scope.sortableLists.after));
-
-            var fromList, toList, theCard;
+            var moveCardSettings = {};
+            moveCardSettings.moveToHead = false;
             for(var i=0; i<$scope.sortableLists.after.length; i++) {
                 var beforeList = $scope.sortableLists.before[i].list;
                 var afterList = $scope.sortableLists.after[i].list;
-                var fromCardIndex = ui.item.sortable.index;
                 var toCardIndex = ui.item.sortable.dropindex;
 
                 // if the afterList has less cards than the beforeList, we found the fromList
                 if(afterList.cards.length < beforeList.cards.length) {
-                    fromList = (JSON.parse(JSON.stringify(afterList)));
+                    moveCardSettings.fromList = (JSON.parse(JSON.stringify(afterList)));
                 }
                 // if the afterList has more cards than the beforeList, we found the toList
                 if(beforeList.cards.length < afterList.cards.length) {
-                    toList = (JSON.parse(JSON.stringify(afterList)));
-                    theCard = (JSON.parse(JSON.stringify(afterList.cards[toCardIndex].card)));
+                    moveCardSettings.toList = (JSON.parse(JSON.stringify(afterList)));
+                    moveCardSettings.theCard = (JSON.parse(JSON.stringify(afterList.cards[toCardIndex].card)));
+                    if(toCardIndex > 0) {
+                        moveCardSettings.prevCard = (JSON.parse(JSON.stringify(afterList.cards[toCardIndex-1].card)));
+                    }
+                    else {
+                        moveCardSettings.moveToHead = true;
+                    }
                 }
             } 
-            LogSvc.write("Moved card [" + theCard.id + "] from list [" + fromList.id + "] to list [" + toList.id + "]");           
+            if(!moveCardSettings.moveToHead) {
+                LogSvc.write("Move card [" + moveCardSettings.theCard.id + 
+                    "] from list [" + moveCardSettings.fromList.id + 
+                    "] to list [" + moveCardSettings.toList.id + 
+                    "] after card [" + moveCardSettings.prevCard.id + "]");           
+            }
+            else {
+                LogSvc.write("Move card [" + moveCardSettings.theCard.id + 
+                    "] from list [" + moveCardSettings.fromList.id + 
+                    "] to list [" + moveCardSettings.toList.id + "] at the head");           
+            }
+            CardsSvc.moveCard(moveCardSettings, function() {
+                loadCards($scope.currentProjectId);
+            });
         },
     };
 
