@@ -6,5 +6,9 @@ collaborativeMindsApp.service("LogSvc", function() {
 		logger.message = m;  
 	};
 
+	logger.append = function(m) {
+		logger.message += m;  
+	};
+
   	return logger;
 });

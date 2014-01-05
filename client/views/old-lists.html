@@ -1,0 +1,39 @@
+<div id="onepage-content" class="onepage-row onepage-scroll-x">
+	<div class="relative-to-this" ng-controller="ListsCtrl">
+		<div class="content-col onepage-col" ng-repeat="currList in lists">
+			<div class="relative-to-this">
+				<div class="panel panel-default state-panel">
+					<div class="relative-to-this">
+						<div class="panel-heading state-panel-heading">
+							<h3 class="panel-title">{{currList.list.data.name}} [{{currList.list.id}}]</h3>
+						</div>
+						<div class="panel-body state-panel-body onepage-scroll-y">
+							<div class="well well-sm" ng-repeat="currentCard in currList.list.cards">
+								<div class="btn-group">
+  									<button type="button" class="btn btn-default btn-xs" ng-click="archiveCard(currentCard)">
+										<span class="glyphicon glyphicon-remove-sign"></span>
+									</button>
+								</div>
+								{{currentCard.card.data.title}} [{{currentCard.card.id}}]
+							</div>										
+							<form ng-submit="addCard(currList)">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<input type="text" class="form-control" ng-model="currList.newCardTitle" placeholder="new card title">
+									</div>
+									<div class="panel-body">
+										<button class="btn btn-default btn-xs">
+											<span class="glyphicon glyphicon-plus-sign"></span> Add Card
+										</button>
+									</div>
+								</div>										
+							</form>
+						</div>
+						<div class="panel-footer state-panel-footer">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

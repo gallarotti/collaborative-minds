@@ -73,7 +73,6 @@ exports.archiveCard = function(req, res) {
             res.send(HTTPStatus.INTERNAL_SERVER_ERROR,'Internal Server Error'); 
         }
         else {
-            console.log("Archiving card with id = " + card.card.id);
             var query = [
                 "MATCH (theCard)<-[:NEXT_CARD|HEAD_CARD*]-(l:List)<-[:NEXT_LIST*]-(h)<-[:HEAD_LIST]-(p:Project)-[:ARCHIVE]->(theArchive:Archive)", 
                 "WHERE ID(theCard)={cardid}",
@@ -87,8 +86,7 @@ exports.archiveCard = function(req, res) {
                 "WITH theCard, theArchive, archiveTail, tp, pt, archivePrevious",
                 "CREATE (archiveTail)-[:PREV_CARD]->(theCard)-[:NEXT_CARD]->(archiveTail)",
                 "CREATE (theCard)-[:PREV_CARD]->(archivePrevious)-[:NEXT_CARD]->(theCard)",
-                "DELETE tp,pt",
-                "RETURN theCard"
+                "DELETE tp,pt"
             ];
             graph.query(query.join('\n'), 
                 {cardid:parseInt(card.card.id)}, 

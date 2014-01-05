@@ -124,6 +124,15 @@ body {
     margin-bottom: 10px;
 }
 
+.well-ph {
+    min-height: 42px;
+    padding: 9px;
+    margin-bottom: 10px;
+    background-color: #fcfcfc;
+    border: 2px dotted red;
+    border-radius: 3px;
+}
+
 .state-panel-footer {
     position:absolute;
     height: 35px;
