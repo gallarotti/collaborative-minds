@@ -122,14 +122,14 @@ exports.moveCard = function(req, res) {
                 "CREATE (previous)-[:NEXT_CARD]->(next)-[:PREV_CARD]->(previous)",
                 "DELETE ptc, tcn, ntc, tcp",
                 "WITH theCard",
-                "MATCH (toList:List)-[tlh:HEAD_CARD]->(head)-[hn:NEXT_CARD]->(next)-[nh:PREV_CARD]->(head)", 
-                "WHERE ID(toList)={toListId}",
-                "WITH theCard, toList, head, next, tlh, hn, nh",
-                "CREATE (head)-[:NEXT_CARD]->(theCard)-[:PREV_CARD]->(head)",
+                "MATCH (prev)-[pn:NEXT_CARD]->(next)-[np:PREV_CARD]->(prev)", 
+                "WHERE ID(prev)={prevCardId}",
+                "WITH theCard, prev, next, np, pn",
+                "CREATE (prev)-[:NEXT_CARD]->(theCard)-[:PREV_CARD]->(prev)",
                 "CREATE (next)-[:PREV_CARD]->(theCard)-[:NEXT_CARD]->(next)",
-                "DELETE hn,nh"
-            ];
-            if(!moveCardSettings.moveToHead) {
+                "DELETE pn,np"
+            ];            
+            if(moveCardSettings.moveToHead) {
                 query = [
                     "MATCH (previous)-[ptc:NEXT_CARD]->(theCard)-[tcn:NEXT_CARD]->(next)-[ntc:PREV_CARD]->(theCard)-[tcp:PREV_CARD]->(previous)",
                     "WHERE ID(theCard)={theCardId}",
@@ -137,13 +137,14 @@ exports.moveCard = function(req, res) {
                     "CREATE (previous)-[:NEXT_CARD]->(next)-[:PREV_CARD]->(previous)",
                     "DELETE ptc, tcn, ntc, tcp",
                     "WITH theCard",
-                    "MATCH (prev)-[pn:NEXT_CARD]->(next)-[np:PREV_CARD]->(prev)", 
-                    "WHERE ID(prev)={prevCardId}",
-                    "WITH theCard, prev, next, np, pn",
-                    "CREATE (prev)-[:NEXT_CARD]->(theCard)-[:PREV_CARD]->(prev)",
+                    "MATCH (toList:List)-[tlh:HEAD_CARD]->(head)-[hn:NEXT_CARD]->(next)-[nh:PREV_CARD]->(head)", 
+                    "WHERE ID(toList)={toListId}",
+                    "WITH theCard, toList, head, next, tlh, hn, nh",
+                    "CREATE (head)-[:NEXT_CARD]->(theCard)-[:PREV_CARD]->(head)",
                     "CREATE (next)-[:PREV_CARD]->(theCard)-[:NEXT_CARD]->(next)",
-                    "DELETE pn,np"
+                    "DELETE hn,nh"
                 ];
+                moveCardSettings.prevCard = moveCardSettings.theCard;
             }
             graph.query(query.join('\n'), 
                 {

@@ -8,12 +8,16 @@ var lists = require("./routes/lists.js");
 var cards = require("./routes/cards.js");
 var tests = require("./routes/tests.js");
 
-var app = express();
+var app = express()
+  , http = require('http')
+  , server = http.createServer(app)
+  , io = require('socket.io').listen(server);
 
 // Express Config
 app.configure(function() {
 	app.use(express.logger("dev"));
-	app.use(express.bodyParser());
+    app.use(express.urlencoded());
+    app.use(express.json())
 });
 
 // Add headers
@@ -42,5 +46,19 @@ app.post("/cards/move", cards.moveCard);
 app.post("/cards/tests/createMultiple", tests.addCards);
 app.post("/cards/tests/archiveMultiple", tests.archiveCards);
 
-app.listen(3000);
+server.listen(3000);
 console.log("collaborative-minds server listening on port 3000...");
+
+io.set('log level', 1); // reduce logging
+io.sockets.on("connection", function (socket) {
+  socket.emit("welcome", { message: "Connected to server socket!" });
+  socket.on("newCardMessage", function (data) {
+    socket.broadcast.emit("reloadProject", { projectId: data.projectId });
+  });
+  socket.on("movedCardMessage", function (data) {
+    socket.broadcast.emit("reloadProject", { projectId: data.projectId });
+  });
+  socket.on("archivedCardMessage", function (data) {
+    socket.broadcast.emit("reloadProject", { projectId: data.projectId });
+  });
+});

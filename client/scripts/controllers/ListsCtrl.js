@@ -50,10 +50,22 @@ collaborativeMindsApp.controller("ListsCtrl", function ($scope, ListsSvc, CardsS
                     "] to list [" + moveCardSettings.toList.id + "] at the head");           
             }
             CardsSvc.moveCard(moveCardSettings, function() {
+                $scope.socket.emit("movedCardMessage", { projectId: $scope.currentProjectId });
                 loadCards($scope.currentProjectId);
             });
         },
     };
+
+    $scope.socket = io.connect("http://localhost:3000");
+    $scope.socket.on("welcome", function (data) {
+        LogSvc.write(data.message);
+    });
+    $scope.socket.on("reloadProject", function (data) {
+        if($scope.currentProjectId == data.projectId) {
+            LogSvc.write("Received reloadProject message for projectId [" + data.projectId + "]");
+            loadCards($scope.currentProjectId);
+        }
+    });
 
     $scope.printList = function(listObject) {
         return (listObject.map(function (l) { 
@@ -74,6 +86,7 @@ collaborativeMindsApp.controller("ListsCtrl", function ($scope, ListsSvc, CardsS
             listId: currentList.list.id
         };
         CardsSvc.create(newCard, function() {
+            $scope.socket.emit("newCardMessage", { projectId: $scope.currentProjectId });
             loadCards($scope.currentProjectId);
         });
     };
@@ -81,6 +94,7 @@ collaborativeMindsApp.controller("ListsCtrl", function ($scope, ListsSvc, CardsS
     $scope.archiveCard = function (currentCard) {
         LogSvc.write("archiveCard [" + currentCard.card.id + "]");
         CardsSvc.archiveCard(currentCard, function() {
+            $scope.socket.emit("archivedCardMessage", { projectId: $scope.currentProjectId });
             loadCards($scope.currentProjectId);
         });
     };
