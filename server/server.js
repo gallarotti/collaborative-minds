@@ -15,7 +15,7 @@ var app = express()
 
 // Express Config
 app.configure(function() {
-	app.use(express.logger("dev"));
+    app.use(express.logger("dev"));
     app.use(express.urlencoded());
     app.use(express.json())
 });
@@ -49,16 +49,54 @@ app.post("/cards/tests/archiveMultiple", tests.archiveCards);
 server.listen(3000);
 console.log("collaborative-minds server listening on port 3000...");
 
-io.set('log level', 1); // reduce logging
+io.set('log level', 2); // reduce logging
 io.sockets.on("connection", function (socket) {
   socket.emit("welcome", { message: "Connected to server socket!" });
   socket.on("newCardMessage", function (data) {
-    socket.broadcast.emit("reloadProject", { projectId: data.projectId });
+    console.log("Received newCardMessage [" + data.projectId + "] [" + data.listId + "] [" + data.newCard.card.id + "]");
+    socket.broadcast.emit("appendCardMessage", { 
+      projectId: data.projectId, 
+      listId: data.listId,
+      newCard: data.newCard
+    });
   });
   socket.on("movedCardMessage", function (data) {
-    socket.broadcast.emit("reloadProject", { projectId: data.projectId });
+    console.log("Received movedCardMessage [" + data.projectId + "] [" + data.moveCardSettings.theCard.id + 
+      "] [" + data.moveCardSettings.fromList.id + "] -> [" + data.moveCardSettings.toList.id + "]"); 
+    socket.broadcast.emit("removeCardMessage", { 
+      projectId: data.projectId, 
+      listId: data.moveCardSettings.fromList.id,
+      cardId: data.moveCardSettings.theCard.id
+    });
+    var newCard = {
+      card: data.moveCardSettings.theCard
+    };
+    if(data.moveCardSettings.moveToTail) {
+      console.log("Broadcasting appendCardMessage [" + data.projectId + "] [" + 
+        data.moveCardSettings.toList.id + "] [" + data.moveCardSettings.theCard.id + "]");
+      socket.broadcast.emit("appendCardMessage", { 
+        projectId: data.projectId, 
+        listId: data.moveCardSettings.toList.id,
+        newCard: newCard
+      });      
+    }
+    else {
+      console.log("Broadcasting insertCardMessage [" + data.projectId + "] [" + 
+        data.moveCardSettings.toList.id + "] [" + data.moveCardSettings.theCard.id + "]");
+      socket.broadcast.emit("insertCardMessage", { 
+        projectId: data.projectId, 
+        listId: data.moveCardSettings.toList.id,
+        position: data.moveCardSettings.toCardIndex,
+        newCard: newCard
+      });      
+    }
   });
   socket.on("archivedCardMessage", function (data) {
-    socket.broadcast.emit("reloadProject", { projectId: data.projectId });
+    console.log("Received archivedCardMessage [" + data.projectId + "] [" + data.listId + "] [" + data.cardId + "]");
+    socket.broadcast.emit("removeCardMessage", { 
+      projectId: data.projectId, 
+      listId: data.listId,
+      cardId: data.cardId
+    });
   });
 });

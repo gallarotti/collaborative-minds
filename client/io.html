@@ -1,8 +1,0 @@
-<script src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
-<script>
-  var socket = io.connect('http://localhost:3000');
-  socket.on("news", function (data) {
-        var timestamp = new Date().getTime();
-        alert("received at ["+ timestamp + "]:"+ data.message);
-  });
-</script>

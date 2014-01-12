@@ -5,9 +5,9 @@ body {
     height: 100%;
 }
 
-.container {
+/*.container {
     width: 100%;
-}
+}*/
 
 /* rows and columns */
 .onepage-row, .onepage-col {
@@ -29,53 +29,37 @@ body {
 
 /* define header, content and footer areas */
 #onepage-header { height: 50px; top: 0; }
-#onepage-content { top: 50px; bottom: 0px; }
-/*#onepage-footer { height: 25px; bottom: 0; }*/
-
-/* define main content area and right sidebar */
-#onepage-main { left: 0px; right: 400px; }
-#onepage-right { width: 400px; right: 0px; }
-
-/* divide the main content area in three columns of equal width */
-/*.content-leftcol, .content-col:nth-of-type(1) { left:0; width: 33%; }
-.content-centercol, .content-col:nth-of-type(2) { left: 34%; right: 34%; }
-.content-rightcol, .content-col:nth-of-type(3) { right:0; width: 33%; }*/
-
-.content-col:nth-of-type(1) { left:0; width: 300px; }
-.content-col:nth-of-type(2) { left: 300px; width: 300px; }
-.content-col:nth-of-type(3) { left: 600px; width: 300px; }
-.content-col:nth-of-type(4) { left: 900px; width: 300px; }
-.content-col:nth-of-type(5) { left: 1200px; width: 300px; }
-.content-col:nth-of-type(6) { left: 1500px; width: 300px; }
-.content-col:nth-of-type(7) { left: 1800px; width: 300px; }
-.content-col:nth-of-type(8) { left: 2100px; width: 300px; }
-.content-col:nth-of-type(9) { left: 2400px; width: 300px; }
-.content-col:nth-of-type(10) { left: 2700px; width: 300px; }
+#onepage-content { 
+    top: 50px; 
+    bottom: 0; 
+    padding: 10px;
+}
 
 /* some extra styling */
-
 #onepage-content {
     background-color: #fcfcfc;
 }
 
-#onepage-footer {
-    background-color: #c0c0c0;
-    border-top: 1px solid #555555;
-    padding: 15px 0 15px 0;
-}
-
-#onepage-main {
-    background-color: #fcfcfc;
-}
-
-#onepage-right {
-    background-color: #e0e0e0;
-    border-left: 1px solid #555555;
+.content-col { 
+    background-color: #fefefe; 
+    margin: 0px 5px 0px 5px; 
+    border: solid 1px #e3e3e3;
+    border-radius: 3px;
+    box-shadow: 0px 0px 5px #eee;
     padding: 10px;
+    width: 250px; 
+    float:left;
 }
 
-.content-col { background-color: #fcfcfc; padding: 10px 5px 10px 5px; }
-.content-col:nth-of-type(1) { padding: 10px 5px 10px 10px; }
+.content-col:nth-of-type(1) { 
+    margin: 0px 5px 0px 10px; 
+}
+
+.content-col h3 {
+    font-size: 15px;
+    line-height: 18px;
+    margin: 0 0 5px 0;
+}
 
 /* adjusting the default CSS */
 .panel {
@@ -122,6 +106,7 @@ body {
 
 .well-sm {
     margin-bottom: 10px;
+    background-color: #fcfcfc;
 }
 
 .well-ph {
@@ -131,6 +116,10 @@ body {
     background-color: #fcfcfc;
     border: 2px dotted red;
     border-radius: 3px;
+}
+
+.scroll-y {
+    overflow-y: auto;
 }
 
 .invisible {
@@ -157,5 +146,6 @@ body {
     margin: 20px auto;
     width: 690px;
 }
+
 
 
